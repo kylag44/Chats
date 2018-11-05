@@ -12,6 +12,7 @@
 		25A1EF212190AD5600F80A7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25A1EF1F2190AD5600F80A7D /* Main.storyboard */; };
 		25A1EF232190AD5700F80A7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A1EF222190AD5700F80A7D /* Assets.xcassets */; };
 		25A1EF262190AD5700F80A7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25A1EF242190AD5700F80A7D /* LaunchScreen.storyboard */; };
+		25A1EF2E2190B7E000F80A7D /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A1EF2D2190B7E000F80A7D /* ChatMessageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		25A1EF222190AD5700F80A7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25A1EF252190AD5700F80A7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25A1EF272190AD5700F80A7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25A1EF2D2190B7E000F80A7D /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				25A1EF1B2190AD5600F80A7D /* AppDelegate.swift */,
 				25A1EF1D2190AD5600F80A7D /* ViewController.swift */,
+				25A1EF2D2190B7E000F80A7D /* ChatMessageCell.swift */,
 				25A1EF1F2190AD5600F80A7D /* Main.storyboard */,
 				25A1EF222190AD5700F80A7D /* Assets.xcassets */,
 				25A1EF242190AD5700F80A7D /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25A1EF2E2190B7E000F80A7D /* ChatMessageCell.swift in Sources */,
 				25A1EF1E2190AD5600F80A7D /* ViewController.swift in Sources */,
 				25A1EF1C2190AD5600F80A7D /* AppDelegate.swift in Sources */,
 			);
