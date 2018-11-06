@@ -8,11 +8,22 @@
 
 import UIKit
 
+struct ChatMessage {
+  let text: String
+  let isIncoming: Bool
+}
+
 class ViewController: UITableViewController {
   
   fileprivate let cellId = "id123"
   
-  let textMessages = ["Here's my first message", "This is a longer message that will hopefully wrap", "The longest message of this array bunch, let's see how well the autoresizing works on this puppy! 🐶 I love the dog emoji, what is your favourite emoji if you don't mind me asking"]
+  let chatMessages = [
+  ChatMessage(text: "Here's my first message", isIncoming: true),
+  ChatMessage(text: "This is a longer message that will hopefully wrap", isIncoming: false),
+  ChatMessage(text: "The longest message of this array bunch, let's see how well the autoresizing works on this puppy! 🐶 I love the dog emoji, what is your favourite emoji if you don't mind me asking", isIncoming: false),
+  ChatMessage(text: "Boo!", isIncoming: true),
+  ChatMessage(text: "This message should appear on the left side with a white text bubble", isIncoming: true)
+  ]
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -22,17 +33,20 @@ class ViewController: UITableViewController {
     
     tableView.register(ChatMessageCell.self, forCellReuseIdentifier: cellId)
     tableView.separatorStyle = .none
+    tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return textMessages.count
+    return chatMessages.count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
-//    cell.textLabel?.text = "I'm providing a nice long string so I can test out my auto sizing and other testing functions for this app. I really love cheeseburgers and poutine. It may just be my favourite meal 🍔🍟"
-//    cell.textLabel?.numberOfLines = 0
-    cell.messageLabel.text = textMessages[indexPath.row]
+  
+    let chatMessage = chatMessages[indexPath.row]
+    
+    cell.chatMessage = chatMessage
+    
     return cell
   }
 

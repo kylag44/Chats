@@ -10,14 +10,36 @@ import UIKit
 
 class ChatMessageCell: UITableViewCell {
 
-let messageLabel = UILabel()
-let bubbleBackgroundView = UIView()
+  let messageLabel = UILabel()
+  let bubbleBackgroundView = UIView()
+  
+  var leadingConstraint: NSLayoutConstraint!
+  var trailingConstraint: NSLayoutConstraint!
+  
+  var chatMessage: ChatMessage! {
+    didSet {
+      bubbleBackgroundView.backgroundColor = chatMessage.isIncoming ? .white : .darkGray
+      messageLabel.textColor = chatMessage.isIncoming ? .black : .white
+      
+      messageLabel.text = chatMessage.text
+      
+      if chatMessage.isIncoming {
+        leadingConstraint.isActive = true
+        trailingConstraint.isActive = false
+      } else {
+        leadingConstraint.isActive = false
+        trailingConstraint.isActive = true
+      }
+    }
+  }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
+    backgroundColor = .clear
+    
     bubbleBackgroundView.backgroundColor = .yellow
-    bubbleBackgroundView.layer.cornerRadius = 5
+    bubbleBackgroundView.layer.cornerRadius = 12
     bubbleBackgroundView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(bubbleBackgroundView)
     
@@ -30,9 +52,9 @@ let bubbleBackgroundView = UIView()
     
     //set up contraints for messageLabel
     let constraints = [messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
-    messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
     messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
-    messageLabel.widthAnchor.constraint(equalToConstant: 250),
+    ////lessThanOrEqualToConstant will make sure text has maximum strength of 250 but if it doesn't need the 250 length it won't use all of it
+    messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
     
     bubbleBackgroundView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -16),
     bubbleBackgroundView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -16),
@@ -41,10 +63,14 @@ let bubbleBackgroundView = UIView()
     ]
 
     NSLayoutConstraint.activate(constraints)
-//    messageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-    
-  }
 
+    leadingConstraint = messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32)
+    leadingConstraint.isActive = false
+    
+    trailingConstraint = messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32)
+    trailingConstraint.isActive = true
+  }
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
