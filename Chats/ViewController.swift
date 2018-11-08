@@ -11,20 +11,36 @@ import UIKit
 struct ChatMessage {
   let text: String
   let isIncoming: Bool
+  let date: Date
+}
+
+extension Date {
+  static func dateFromCustomString(customString: String) -> Date {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MM/dd/yyyy"
+    return dateFormatter.date(from: customString) ?? Date()
+  }
 }
 
 class ViewController: UITableViewController {
   
   fileprivate let cellId = "id123"
-  
-  let chatMessages = [
-  ChatMessage(text: "Here's my first message", isIncoming: true),
-  ChatMessage(text: "This is a longer message that will hopefully wrap", isIncoming: false),
-  ChatMessage(text: "The longest message of this array bunch, let's see how well the autoresizing works on this puppy! 🐶 I love the dog emoji, what is your favourite emoji if you don't mind me asking", isIncoming: false),
-  ChatMessage(text: "Boo!", isIncoming: true),
-  ChatMessage(text: "This message should appear on the left side with a white text bubble", isIncoming: true)
-  ]
 
+  let chatMessages = [
+    [
+      ChatMessage(text: "Here's my first message", isIncoming: true, date: Date.dateFromCustomString(customString: "11/07/2018")),
+      ChatMessage(text: "This is a longer message that will hopefully wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "11/07/2018"))
+    ],
+    [
+      ChatMessage(text: "The longest message of this array bunch, let's see how well the autoresizing works on this puppy! 🐶 I love the dog emoji, what is your favourite emoji if you don't mind me asking", isIncoming: false, date: Date.dateFromCustomString(customString: "11/09/2018")),
+      ChatMessage(text: "Boo!", isIncoming: true, date: Date.dateFromCustomString(customString: "11/09/2018")),
+      ChatMessage(text: "This message should appear on the left side with a white text bubble", isIncoming: true, date: Date.dateFromCustomString(customString: "11/07/2018"))
+    ],
+    [
+      ChatMessage(text: "This is another test text for the third section", isIncoming: true, date: Date.dateFromCustomString(customString: "11/10/2018"))
+    ]
+  ]
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -35,15 +51,30 @@ class ViewController: UITableViewController {
     tableView.separatorStyle = .none
     tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
   }
+  
+  override func numberOfSections(in tableView: UITableView) -> Int {
+    return chatMessages.count
+  }
+  
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if let firstMessageInSection = chatMessages[section].first {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MM/dd/yyyy"
+      let dateString = dateFormatter.string(from: firstMessageInSection.date)
+      return dateString
+    }
+    
+    return "Section \(Date())"
+  }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return chatMessages.count
+    return chatMessages[section].count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ChatMessageCell
   
-    let chatMessage = chatMessages[indexPath.row]
+    let chatMessage = chatMessages[indexPath.section][indexPath.row]
     
     cell.chatMessage = chatMessage
     
