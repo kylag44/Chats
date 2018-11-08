@@ -51,7 +51,7 @@ class ChatMessageCell: UITableViewCell {
     messageLabel.translatesAutoresizingMaskIntoConstraints = false
     
     //set up contraints for messageLabel
-    let constraints = [messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+    let constraints = [messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
     messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
     ////lessThanOrEqualToConstant will make sure text has maximum strength of 250 but if it doesn't need the 250 length it won't use all of it
     messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
