@@ -26,23 +26,60 @@ class ViewController: UITableViewController {
   
   fileprivate let cellId = "id123"
 
-  let chatMessages = [
-    [
+//  let chatMessages = [
+//    [
+//      ChatMessage(text: "Here's my first message", isIncoming: true, date: Date.dateFromCustomString(customString: "11/07/2018")),
+//      ChatMessage(text: "This is a longer message that will hopefully wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "11/07/2018"))
+//    ],
+//    [
+//      ChatMessage(text: "The longest message of this array bunch, let's see how well the autoresizing works on this puppy! 🐶 I love the dog emoji, what is your favourite emoji if you don't mind me asking", isIncoming: false, date: Date.dateFromCustomString(customString: "11/09/2018")),
+//      ChatMessage(text: "Boo!", isIncoming: true, date: Date.dateFromCustomString(customString: "11/09/2018")),
+//      ChatMessage(text: "This message should appear on the left side with a white text bubble", isIncoming: true, date: Date.dateFromCustomString(customString: "11/07/2018"))
+//    ],
+//    [
+//      ChatMessage(text: "This is another test text for the third section", isIncoming: true, date: Date.dateFromCustomString(customString: "11/10/2018"))
+//    ]
+//  ]
+  
+  let messagesFromServer = [
       ChatMessage(text: "Here's my first message", isIncoming: true, date: Date.dateFromCustomString(customString: "11/07/2018")),
-      ChatMessage(text: "This is a longer message that will hopefully wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "11/07/2018"))
-    ],
-    [
+      ChatMessage(text: "This is a longer message that will hopefully wrap", isIncoming: false, date: Date.dateFromCustomString(customString: "11/07/2018")),
       ChatMessage(text: "The longest message of this array bunch, let's see how well the autoresizing works on this puppy! 🐶 I love the dog emoji, what is your favourite emoji if you don't mind me asking", isIncoming: false, date: Date.dateFromCustomString(customString: "11/09/2018")),
       ChatMessage(text: "Boo!", isIncoming: true, date: Date.dateFromCustomString(customString: "11/09/2018")),
-      ChatMessage(text: "This message should appear on the left side with a white text bubble", isIncoming: true, date: Date.dateFromCustomString(customString: "11/07/2018"))
-    ],
-    [
+      ChatMessage(text: "This message should appear on the left side with a white text bubble", isIncoming: true, date: Date.dateFromCustomString(customString: "11/07/2018")),
       ChatMessage(text: "This is another test text for the third section", isIncoming: true, date: Date.dateFromCustomString(customString: "11/10/2018"))
-    ]
   ]
+  
+  fileprivate func attemptToAssembleGroupMessages() {
+    print("Attempt to group messages together based on date property")
+    
+    let groupedMessages = Dictionary(grouping: messagesFromServer) { (element) -> Date in
+      return element.date
+    }
+    
+    //provide sorting for keys
+    let sortedKeys = groupedMessages.keys.sorted()
+    sortedKeys.forEach { (key) in
+      let values = groupedMessages[key]
+      chatMessages.append(values ?? [])
+    }
+      
+//    groupedMessages.keys.forEach { (key) in
+//    print(key)
+//      let values = groupedMessages[key]
+//      print(values ?? " ")
+//
+//      chatMessages.append(values ?? [])
+//    }
+//    print(groupedMessages)
+  }
+  
+  var chatMessages = [[ChatMessage]]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    attemptToAssembleGroupMessages()
     
     navigationItem.title = "Messages"
     navigationController?.navigationBar.prefersLargeTitles = true
